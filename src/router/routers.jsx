@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import ArticulosPage from '../pages/Articulos/Articulos';
-import PresupuestoPage from '../pages/Presupuesto/Presupuesto';
+import ComercialPage from '../pages/Comercial/Comercial';
 import CalidadPage from '../pages/Calidad/CalidadPAge';
 
 
@@ -11,12 +11,13 @@ const routers = createBrowserRouter([
         element: <App />,
         children: [
             {
-                path: 'articulos',
-                element: <ArticulosPage />
+                path: 'comercial',
+                element: <ComercialPage />
+                
             },
             {
-                path: 'presupuesto',
-                element: <PresupuestoPage />
+                path: 'articulos',
+                element: <ArticulosPage />
             },
             {
                 path: 'calidad',

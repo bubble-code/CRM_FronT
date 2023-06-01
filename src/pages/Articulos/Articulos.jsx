@@ -22,6 +22,7 @@ const ArticulosPage = () => {
                     sx: {
                         border: '1px solid rgba(81, 81, 81, 1)',
                     },
+                    
                 }}
                     muiTableHeadCellProps={{
                         sx: {
@@ -32,7 +33,7 @@ const ArticulosPage = () => {
                         sx: {
                             border: '1px solid rgba(81, 81, 81, 1)',
                         },
-                    }} />
+                    }}   />
                     // <Table columns={columns} dataSource={articulos} rowKey="IDArticulo" pagination={{ pageSize: 20 }} />
                 }
             </div>

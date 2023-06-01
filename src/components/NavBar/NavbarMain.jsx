@@ -17,7 +17,7 @@ export default function NavbarMain() {
     const navOptions = [
         // { path: '/', label: 'Inicio' },
         //icon: <ChevronDownIcon className="h-[18px] w-[18px]" />
-        { path: '/presupuesto', label: 'Presupuesto', icon: <CurrencyEuroIcon className="h-[18px] w-[18px]" /> },
+        { path: '/comercial', label: 'Comercial', icon: <></> },
         { path: '/articulos', label: 'Articulos', icon: <IdentificationIcon className="h-[18px] w-[18px]"></IdentificationIcon> },
         { path: '/of', label: 'Orden Fab', icon: <CubeTransparentIcon className="h-[18px] w-[18px]" /> },
         { path: '/calidad', label: 'Calidad', icon: <QuestionMarkCircleIcon className="h-[18px] w-[18px]" /> },
@@ -35,13 +35,13 @@ export default function NavbarMain() {
 
 
     return (
-        <Navbar className="py-2 px-2 lg:px-2 lg:py-4 text-gray-950 w-full">
+        <Navbar className="py-2 px-2 lg:px-2 lg:py-4 w-screen max-w-none">
             <nav className=" mx-auto flex items-center justify-between">
                 <Typography
                     as="a"
                     href="#"
                     variant="small"
-                    className="mr-4 cursor-pointer py-1.5 font-normal hover:border-b-blue-500 border-b"
+                    className="mr-4 cursor-pointer py-1.5 font-normal hover:border-b-blue-500 border-b text-gray-900"
                 >
                     <NavLink to={'/'}>HOME</NavLink>
                 </Typography>

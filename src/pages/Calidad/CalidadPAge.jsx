@@ -19,10 +19,10 @@ const CalidadPage = () => {
             <div className="w-full h-full mt-5 flex justify-center mb-5">
                 {isLoading ? <div>
                     <Spinner className="h-12 w-12" />
-                </div> : <MaterialReactTable columns={columns} data={calidads}
+                </div> : <MaterialReactTable columns={columns} data={calidads} 
                     muiTableProps={{
                         sx: {
-                            border: '1px solid rgba(81, 81, 81, 1)',
+                            border: '1px solid rgba(81, 81, 81, 1)'
                         },
 
                     }}
