@@ -10,17 +10,23 @@ import { Collapse } from "antd";
 
 export default function NavbarMain() {
     const [openNav, setOpenNav] = useState(false);
-    const location = useLocation()
+    // const location = useLocation()
 
-    const pathName = location.pathname
+    // const pathName = location.pathname
 
     const navOptions = [
         // { path: '/', label: 'Inicio' },
         //icon: <ChevronDownIcon className="h-[18px] w-[18px]" />
+        { path: '/crm', label: 'CRM', icon: <></> },
+        { path: '/logistica', label: 'Logistica', icon: <></> },
+        { path: '/proyectos', label: 'Proyectos', icon: <></> },
+        { path: '/produccion', label: 'Produccion', icon: <></> },
+        { path: '/calidad', label: 'Calidad', icon: <></> },
+        { path: '/config', label: 'Configuracion', icon: <></> },
         { path: '/comercial', label: 'Comercial', icon: <></> },
         { path: '/articulos', label: 'Articulos', icon: <IdentificationIcon className="h-[18px] w-[18px]"></IdentificationIcon> },
         { path: '/of', label: 'Orden Fab', icon: <CubeTransparentIcon className="h-[18px] w-[18px]" /> },
-        { path: '/calidad', label: 'Calidad', icon: <QuestionMarkCircleIcon className="h-[18px] w-[18px]" /> },
+        // { path: '/calidad', label: 'Calidad', icon: <QuestionMarkCircleIcon className="h-[18px] w-[18px]" /> },
         // { path: '/config', label: 'Config', icon: <RocketLaunchIcon className="h-[18px] w-[18px]" /> },
     ];
 

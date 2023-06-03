@@ -3,6 +3,12 @@ import App from '../App';
 import ArticulosPage from '../pages/Articulos/Articulos';
 import ComercialPage from '../pages/Comercial/Comercial';
 import CalidadPage from '../pages/Calidad/CalidadPAge';
+import CrmPage from '../pages/Crm/CrmPage';
+import LogisticaPage from '../pages/LogisticaPage/LogisticaPage'
+import ProyectoPage from '../pages/Proyecto/ProyectoPage'
+import ProduccionPage from '../pages/Produccion/ProduccionPage'
+import ConfigPage from '../pages/Config/ConfigPage';
+import OfertaFabricacionPage from '../pages/OfertaFabricacion/OfertaFabricacionPage';
 
 
 const routers = createBrowserRouter([
@@ -11,18 +17,46 @@ const routers = createBrowserRouter([
         element: <App />,
         children: [
             {
+                path: 'crm',
+                element: <CrmPage />
+
+            },
+            {
+                path: 'logistica',
+                element: <LogisticaPage />
+
+            },
+            {
+                path: 'proyectos',
+                element: <ProyectoPage />
+
+            },
+            {
+                path: 'produccion',
+                element: <ProduccionPage />
+
+            },
+            {
+                path: 'calidad',
+                element: <CalidadPage />
+            },
+            {
+                path: 'config',
+                element: <ConfigPage />
+            },
+            {
+                path: 'of',
+                element: <OfertaFabricacionPage />
+            },
+            {
                 path: 'comercial',
                 element: <ComercialPage />
-                
+
             },
             {
                 path: 'articulos',
                 element: <ArticulosPage />
             },
-            {
-                path: 'calidad',
-                element: <CalidadPage />
-            }
         ]
     }
 ])

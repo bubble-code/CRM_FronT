@@ -1,21 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Typography, List, ListItem, ListItemPrefix, ListItemSuffix, Chip, Accordion, AccordionHeader, AccordionBody, Input } from "@material-tailwind/react";
-import { PresentationChartBarIcon, ShoppingBagIcon, UserCircleIcon, Cog6ToothIcon, InboxIcon, PowerIcon } from "@heroicons/react/24/solid";
+import { PresentationChartBarIcon, StarIcon, Cog6ToothIcon, InboxIcon, PowerIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Proptypes from 'prop-types';
 
 
-export default function MainSideBar({ title }) {
-    const [open, setOpen] = React.useState(0);
-    const [subOpen, setSubOpen] = useState(0);
+export default function MainSideBar({ title, options }) {
 
-    const handleOpen = (value) => {
-        setOpen(open === value ? 0 : value);
-    };
-
-    const handleSubOpen = (value) => {
-        setSubOpen(value)
-    }
     return (
         <Card className="left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
             <div className="border-b border-black flex items-center gap-4 p-1">
@@ -26,108 +17,76 @@ export default function MainSideBar({ title }) {
             <div className="p-2">
                 <Input icon={<MagnifyingGlassIcon className="h-5 w-5" />} label="Search" />
             </div>
-            <List>
-                <Accordion
-                    open={open === 1}
-                    icon={
-                        <ChevronDownIcon
-                            strokeWidth={2.5}
-                            className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
-                        />
-                    }
-                >
-                    <ListItem className={`p-0`} selected={open === 1}>
-                        <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
-                            <ListItemPrefix>
-                                <PresentationChartBarIcon className="h-5 w-5" />
-                            </ListItemPrefix>
-                            <Typography color="blue-gray" className="mr-auto font-normal">
-                                Oferta Comercial
-                            </Typography>
-                        </AccordionHeader>
-                    </ListItem>
-                    <AccordionBody className="py-1">
-                        <List >
-                            <ListItem selected={subOpen === 2} className={`px-4 hover:opacity-0  hover:opacity-100 ${subOpen === 2 ? 'bg-azul-acero' : ''}`} onClick={() => handleSubOpen(2)} >
-                                <Typography>
-                                    Nueva Oferta
-                                </Typography>
-                            </ListItem>
-                            <ListItem>
-                                List Bid
-                            </ListItem>
-                        </List>
-                    </AccordionBody>
-                </Accordion>
-                <Accordion
-                    open={open === 2}
-                    icon={
-                        <ChevronDownIcon
-                            strokeWidth={2.5}
-                            className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
-                        />
-                    }
-                >
-                    <ListItem className="p-0" selected={open === 2}>
-                        <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
-                            <ListItemPrefix>
-                                <ShoppingBagIcon className="h-5 w-5" />
-                            </ListItemPrefix>
-                            <Typography color="blue-gray" className="mr-auto font-normal">
-                                E-Commerce
-                            </Typography>
-                        </AccordionHeader>
-                    </ListItem>
-                    <AccordionBody className="py-1">
-                        <List className="p-0">
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Orders
-                            </ListItem>
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Products
-                            </ListItem>
-                        </List>
-                    </AccordionBody>
-                </Accordion>
-                <hr className="my-2 border-blue-gray-50" />
-                <ListItem>
-                    <ListItemPrefix>
-                        <InboxIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Inbox
-                    <ListItemSuffix>
-                        <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
-                    </ListItemSuffix>
-                </ListItem>
-                <ListItem>
-                    <ListItemPrefix>
-                        <UserCircleIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Profile
-                </ListItem>
-                <ListItem>
-                    <ListItemPrefix>
-                        <Cog6ToothIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Settings
-                </ListItem>
-                <ListItem>
-                    <ListItemPrefix>
-                        <PowerIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Log Out
-                </ListItem>
-            </List>
+            <GenerateList list={options} />
         </Card>
     );
 }
 
+const GenerateList = ({ list }) => {
+    const [subOpen, setSubOpen] = useState(0);
+    const [open, setOpen] = React.useState(1);
+
+    const handleOpen = (value) => {
+        setOpen(open === value ? 0 : value);
+    };
+
+    const handleSubOpen = (value, e) => {
+        console.log(e)
+        e.preventDefault()
+        setSubOpen(value)
+    }
+
+    const handleHover = (e) => {
+        e.preventDefault()
+        console.log(e.target)
+        e.target.style.backgroundColor = e.target.key === subOpen ? 'bg-azul-acero' : 'transparent'
+    }
+
+    return (
+        <List>
+            {list.map((item, idx) => {
+                if (Array.isArray(item?.subOptions)) {
+                    return (
+                        <Accordion key={idx} open={open === 1} icon={<ChevronDownIcon strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`} />}>
+                            <ListItem >
+                                <AccordionHeader onClick={() => handleOpen(1)}>
+                                    <ListItemPrefix>
+                                        <PresentationChartBarIcon className="h-5 w-5" />
+                                    </ListItemPrefix>
+                                    <Typography color="blue-gray" className="mr-auto font-normal">
+                                        {item.label}
+                                    </Typography>
+                                </AccordionHeader>
+                            </ListItem>
+                            <AccordionBody>
+                                <List className="p-0">
+                                    {item.subOptions.map((subItem, subIndx) => {
+                                        return (
+                                            <ListItem key={subIndx + 10} selected={subOpen === subIndx} className={`px-4 sdsds hover:bg-blue-gray-600 active:bg-azul-acero`} onClick={(e) => handleSubOpen(subIndx, e)}>
+                                                <ListItemPrefix>
+                                                    <StarIcon strokeWidth={3} className="h-3 w-5" />
+                                                </ListItemPrefix>
+                                                {subItem.label}
+                                            </ListItem>
+                                        )
+                                    })}
+                                </List>
+                            </AccordionBody>
+                        </Accordion>
+                    )
+                }
+            })}
+        </List>
+    )
+
+}
+
+
 MainSideBar.propTypes = {
-    title: Proptypes.string.isRequired
+    title: Proptypes.string.isRequired,
+    options: Proptypes.array.isRequired
+}
+
+GenerateList.propTypes = {
+    list: Proptypes.array
 }
