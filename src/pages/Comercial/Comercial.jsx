@@ -1,5 +1,6 @@
-import FormPresupuesto from "../../components/formPresupuesto/formPresupuesto";
+import { FormBuscarOferta } from "../../components/formBuscarOferta/FormBuscarOferta";
 import MainSideBar from "../../components/mainSideBar/MainSideBar";
+import { TitleSubPage } from "../../components/titleSubPage/TitleSubPage";
 
 
 const options = [
@@ -26,12 +27,13 @@ const options = [
 const PresupuestoPage = () => {
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-2 overflow-hidden">
             <div className="col-span-1">
                 <MainSideBar title="Comercial" options={options} />
             </div>
-            <div className="col-span-2">
-                <FormPresupuesto />
+            <div className="col-span-3">
+                <TitleSubPage title="Comercial" />
+                <FormBuscarOferta />
             </div>
 
         </div>

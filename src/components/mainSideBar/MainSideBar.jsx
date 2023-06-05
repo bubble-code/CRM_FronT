@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Card, Typography, List, ListItem, ListItemPrefix, ListItemSuffix, Chip, Accordion, AccordionHeader, AccordionBody, Input } from "@material-tailwind/react";
-import { PresentationChartBarIcon, StarIcon, Cog6ToothIcon, InboxIcon, PowerIcon } from "@heroicons/react/24/solid";
-import { ChevronRightIcon, ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { Card, Typography, List, ListItem, ListItemPrefix, Accordion, AccordionHeader, AccordionBody, Input } from "@material-tailwind/react";
+import { PresentationChartBarIcon, StarIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Proptypes from 'prop-types';
+import { useAppDispath, useAppSelector } from "../../app/hoock";
+import { changeRoute } from "../../redux/Slices/RouteSlice";
 
 
 export default function MainSideBar({ title, options }) {
@@ -23,23 +25,17 @@ export default function MainSideBar({ title, options }) {
 }
 
 const GenerateList = ({ list }) => {
-    const [subOpen, setSubOpen] = useState(0);
-    const [open, setOpen] = React.useState(1);
+    const [open, setOpen] = useState(1);
+    const dispatch = useAppDispath();
+    const selectedOption = useAppSelector((state) => state.subRoutePage.data)
+
 
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
     };
 
-    const handleSubOpen = (value, e) => {
-        console.log(e)
-        e.preventDefault()
-        setSubOpen(value)
-    }
-
-    const handleHover = (e) => {
-        e.preventDefault()
-        console.log(e.target)
-        e.target.style.backgroundColor = e.target.key === subOpen ? 'bg-azul-acero' : 'transparent'
+    const handleSubOpen = (value) => {
+        dispatch(changeRoute(value))
     }
 
     return (
@@ -61,12 +57,14 @@ const GenerateList = ({ list }) => {
                             <AccordionBody>
                                 <List className="p-0">
                                     {item.subOptions.map((subItem, subIndx) => {
+                                        const { label } = subItem
                                         return (
-                                            <ListItem key={subIndx + 10} selected={subOpen === subIndx} className={`px-4 sdsds hover:bg-blue-gray-600 active:bg-azul-acero`} onClick={(e) => handleSubOpen(subIndx, e)}>
+                                            <ListItem key={subIndx + 10} selected={label === selectedOption} className={`px-4 sdsds hover:bg-blue-gray-600 ${label === selectedOption ? 'focus:bg-azul-acero  active:bg-azul-acero bg-azul-acero' : ''}`}
+                                                onClick={(e) => handleSubOpen(label, e)}>
                                                 <ListItemPrefix>
                                                     <StarIcon strokeWidth={3} className="h-3 w-5" />
                                                 </ListItemPrefix>
-                                                {subItem.label}
+                                                {label}
                                             </ListItem>
                                         )
                                     })}
