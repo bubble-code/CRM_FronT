@@ -27,7 +27,7 @@ const options = [
 const PresupuestoPage = () => {
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-2 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
             <div className="col-span-1">
                 <MainSideBar title="Comercial" options={options} />
             </div>

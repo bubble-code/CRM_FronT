@@ -1,6 +1,6 @@
 
 import { Form, Input, Button } from "antd";
-import { apiOfertaSlice, useFetchOfertasQuery } from "../../features/ofertas-api-slice";
+import { apiOfertaSlice, useFetchOfertasQuery, fetchOfertas } from "../../features/ofertas-api-slice";
 import { useAppDispath } from "../../app/hoock";
 import { useDispatch } from 'react-redux'
 import { fetchUserId } from "../../redux/Slices/RouteSlice";
@@ -11,9 +11,9 @@ import { fetchUserId } from "../../redux/Slices/RouteSlice";
 const FormBuscarOferta = () => {
     const [form] = Form.useForm()
     const dispatch = useDispatch();
-    const { refetch } = useFetchOfertasQuery('/', {
-        skip: true
-    })
+    // const { refetch } = useFetchOfertasQuery('/', {
+    //     skip: true
+    // })
 
     function searchArticle() {
         const value = form.getFieldValue('idArticulo')
@@ -23,6 +23,8 @@ const FormBuscarOferta = () => {
 
     function fetchAllArticle() {
         dispatch(fetchUserId())
+        dispatch(fetchOfertas.initiate())
+        // console.log(data)
         // useDispatch(apiOfertaSlice.endpoints.fetchOfertas.initiate())
     }
 

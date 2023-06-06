@@ -23,4 +23,4 @@ const apiOfertaSlice = createApi({
 });
 
 export { apiOfertaSlice }
-export const { useFetchOfertasQuery } = apiOfertaSlice;
+export const { useFetchOfertasQuery, endpoints: { fetchOfertas } } = apiOfertaSlice;

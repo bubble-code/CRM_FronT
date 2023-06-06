@@ -1,31 +1,29 @@
 
 
 import { useState, useEffect } from "react";
-import { Navbar, MobileNav, Typography, Button, IconButton } from "@material-tailwind/react";
-import { NavLink, useLocation } from "react-router-dom";
-import { CubeTransparentIcon, Bars3Icon, XMarkIcon, CurrencyEuroIcon, IdentificationIcon, BuildingStorefrontIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
+import { Navbar, Typography, Button, IconButton, Collapse } from "@material-tailwind/react";
+import { NavLink } from "react-router-dom";
 import { NavList } from "./NavList";
 import NavListMenu from "./NavListOptions";
-import { Collapse } from "antd";
 
 export default function NavbarMain() {
     const [openNav, setOpenNav] = useState(false);
-    // const location = useLocation()
-
-    // const pathName = location.pathname
 
     const navOptions = [
         // { path: '/', label: 'Inicio' },
         //icon: <ChevronDownIcon className="h-[18px] w-[18px]" />
+        { path: '/config', label: 'Configuracion', icon: <></> },
         { path: '/crm', label: 'CRM', icon: <></> },
+        { path: '/comercial', label: 'Comercial', icon: <></> },
         { path: '/logistica', label: 'Logistica', icon: <></> },
-        { path: '/proyectos', label: 'Proyectos', icon: <></> },
+        { path: '/financiero', label: 'Financiero', icon: <></> },
         { path: '/produccion', label: 'Produccion', icon: <></> },
         { path: '/calidad', label: 'Calidad', icon: <></> },
-        { path: '/config', label: 'Configuracion', icon: <></> },
-        { path: '/comercial', label: 'Comercial', icon: <></> },
-        { path: '/articulos', label: 'Articulos', icon: <IdentificationIcon className="h-[18px] w-[18px]"></IdentificationIcon> },
-        { path: '/of', label: 'Orden Fab', icon: <CubeTransparentIcon className="h-[18px] w-[18px]" /> },
+        { path: '/rhumanos', label: 'RRHH', icon: <></> },
+        { path: '/presencio', label: 'Cont.Presencia', icon: <></> },
+        // { path: '/proyectos', label: 'Proyectos', icon: <></> },
+        // { path: '/articulos', label: 'Articulos', icon: <IdentificationIcon className="h-[18px] w-[18px]"></IdentificationIcon> },
+        // { path: '/of', label: 'Orden Fab', icon: <CubeTransparentIcon className="h-[18px] w-[18px]" /> },
         // { path: '/calidad', label: 'Calidad', icon: <QuestionMarkCircleIcon className="h-[18px] w-[18px]" /> },
         // { path: '/config', label: 'Config', icon: <RocketLaunchIcon className="h-[18px] w-[18px]" /> },
     ];
@@ -44,8 +42,6 @@ export default function NavbarMain() {
         <Navbar className="py-2 px-2 lg:px-2 lg:py-4 w-screen max-w-none">
             <nav className=" mx-auto flex items-center justify-between">
                 <Typography
-                    as="a"
-                    href="#"
                     variant="small"
                     className="mr-4 cursor-pointer py-1.5 font-normal hover:border-b-blue-500 border-b text-gray-900"
                 >
@@ -94,14 +90,11 @@ export default function NavbarMain() {
                     )}
                 </IconButton>
             </nav>
-            <MobileNav open={openNav}>
+            <Collapse open={openNav}>
                 <div className="container mx-auto">
-                    {NavList(navOptions)}
-                    <Button variant="gradient" size="sm" fullWidth className="mb-2">
-                        {/* <span>Buy Now</span> */}
-                    </Button>
+                    {/* {NavList(navOptions)} */}
                 </div>
-            </MobileNav>
+            </Collapse>
         </Navbar>
     );
 }

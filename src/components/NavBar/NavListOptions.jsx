@@ -1,6 +1,6 @@
 import { useState, Fragment, createElement } from "react";
-import { Typography, MenuItem, Menu, MenuHandler, MenuList, MobileNav, Chip } from "@material-tailwind/react";
-import { Square3Stack3DIcon, ChevronDownIcon, FlagIcon, ChatBubbleOvalLeftIcon, UsersIcon, FolderIcon, RocketLaunchIcon, FaceSmileIcon, PuzzlePieceIcon, GiftIcon, } from "@heroicons/react/24/outline";
+import { Typography, MenuItem, Menu, MenuHandler, MenuList, Chip, Collapse } from "@material-tailwind/react";
+import { Square3Stack3DIcon, ChevronDownIcon, ChatBubbleOvalLeftIcon, UsersIcon, FolderIcon, RocketLaunchIcon, FaceSmileIcon, PuzzlePieceIcon, GiftIcon, } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 
 const colors = {
@@ -153,7 +153,7 @@ export default function NavListMenu() {
                 </MenuList>
             </Menu>
             <div className="block lg:hidden">
-                <MobileNav open={isMobileMenuOpen}>{renderItems}</MobileNav>
+                <Collapse open={isMobileMenuOpen}>{renderItems}</Collapse>
             </div>
         </Fragment>
     );
