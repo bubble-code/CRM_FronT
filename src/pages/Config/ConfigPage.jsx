@@ -15,30 +15,53 @@ export default function ConfigPage() {
 
     const options = [
         {
-            label: "Empresa",
-            link: "empresa",
+            label: "Configuracion",
+            link: "configuracion",
+            icon: "ChevronDownIcon",
             subOptions: [
                 {
                     label: "Empresa",
                     link: "empresa",
+                    icon: "MagnifyingGlassIcon",
                     subOptions: [
                         {
-                            label: "Contadores",
-                            link: "contadores",
+                            label: "Empresa",
+                            link: "empresaItem",
+                            icon: "BuildingLibraryIcon",
                             subOptions: [
                                 {
                                     label: "Contadores",
-                                    link: "contadores/contadores"
+                                    link: "contadores/contadores",
+                                    icon: "StarIcon"
                                 },
                                 {
                                     label: "Contadores de Entidad",
-                                    link: "contadores/entidad"
+                                    link: "contadores/entidad",
+                                    icon: "StarIcon"
+                                }
+                            ]
+                        },
+                        {
+                            label: "Contadores",
+                            link: "contadores",
+                            icon: "MagnifyingGlassIcon",
+                            subOptions: [
+                                {
+                                    label: "Contadores",
+                                    link: "contadores/contadores",
+                                    icon: "StarIcon"
+                                },
+                                {
+                                    label: "Contadores de Entidad",
+                                    link: "contadores/entidad",
+                                    icon: "StarIcon"
                                 }
                             ]
                         },
                         {
                             label: "Calendario",
                             link: "calendarios",
+                            icon: "MagnifyingGlassIcon",
                             subOptions: [
                                 {
                                     label: "Datos de Empresa",
@@ -53,57 +76,57 @@ export default function ConfigPage() {
                                     link: "calendarios/bancospropios"
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    label: "Tablas Estables",
-                    link: "testables",
-                    subOptions: [
-                        {
-                            label: "Datos de Empresa",
-                            link: "datosempresa"
                         },
                         {
-                            label: "Consulta de Parametros",
-                            link: "consultaParametros"
-                        },
-                        {
-                            label: "Consulta de Entidades",
-                            link: "consultaentidades"
-                        }
-                    ]
-                },
-                {
-                    label: "Parametrizacion",
-                    link: "parametrizacion",
-                    subOptions: [
-                        {
-                            label: "Parametros",
-                            link: "parametros",
+                            label: "Tablas Estables",
+                            link: "testables",
                             subOptions: [
                                 {
-                                    label: "Grupo de Parametros",
-                                    link: "grupoparametros"
+                                    label: "Datos de Empresa",
+                                    link: "datosempresa"
                                 },
                                 {
-                                    label: "Parametros",
-                                    link: "parametros"
+                                    label: "Consulta de Parametros",
+                                    link: "consultaParametros"
                                 },
                                 {
-                                    label: "Consulta Parametros",
-                                    link: "consultaparametros"
-                                }
+                                    label: "Consulta de Entidades",
+                                    link: "consultaentidades"
+                                },
+                                {
+                                    label: "Parametrizacion",
+                                    link: "parametrizacion",
+                                    subOptions: [
+                                        {
+                                            label: "Parametros",
+                                            link: "parametros",
+                                            subOptions: [
+                                                {
+                                                    label: "Grupo de Parametros",
+                                                    link: "grupoparametros"
+                                                },
+                                                {
+                                                    label: "Parametros",
+                                                    link: "parametros"
+                                                },
+                                                {
+                                                    label: "Consulta Parametros",
+                                                    link: "consultaparametros"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            label: "Configuracion Correos",
+                                            link: "configuracioncorreo"
+                                        },
+                                        {
+                                            label: "Entidades Fotos",
+                                            link: "entidadesfotos"
+                                        }
+                                    ]
+                                },
                             ]
                         },
-                        {
-                            label: "Configuracion Correos",
-                            link: "configuracioncorreo"
-                        },
-                        {
-                            label: "Entidades Fotos",
-                            link: "entidadesfotos"
-                        }
                     ]
                 },
                 {

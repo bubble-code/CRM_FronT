@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import { Card, Typography, List, ListItem, ListItemPrefix, Accordion, AccordionHeader, AccordionBody, Input } from "@material-tailwind/react";
 import { PresentationChartBarIcon, StarIcon } from "@heroicons/react/24/solid";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, MagnifyingGlassIcon, BuildingLibraryIcon } from "@heroicons/react/24/outline";
 import Proptypes from 'prop-types';
 import { useAppDispath, useAppSelector } from "../../app/hoock";
 import { changeRoute } from "../../redux/Slices/RouteSlice";
@@ -47,94 +47,65 @@ const GenerateList = ({ list }) => {
         dispatch(changeRoute(value))
     }
 
-    return (
-        <List>
-            {list.map((item, idx) => {
-                const { label } = item
-                if (Array.isArray(item.subOptions)) {
-                    return (
-                        <Accordion key={idx} open={!!open[idx]} icon={<ChevronDownIcon strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open[idx] ? "rotate-180" : ""}`} />}>
-                            {renderListItemsHeader(item, idx, handleOpen)}
-                            <AccordionBody>
-                                {item.subOptions.map((subItem, subIndx) => {
-                                    const { label } = subItem
-                                    if (Array.isArray(subItem.subOptions)) {
-                                        // console.log(subItem.subOptions)
-                                        const index = subIndx + idx + 1
-                                        return (
-                                            <List key={subIndx + 22}>
-                                                <Accordion key={index} open={!!open[index]} icon={<ChevronDownIcon strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open[index] ? "rotate-180" : ""}`} />}>
-                                                    {renderListItemsHeader(subItem, index, handleOpen)}
-                                                    <AccordionBody>
-                                                        <List className="p-0">
-                                                            {subItem.subOptions.map((subsubItem, subsubIndex) => {
-                                                                return renderListItemsBody(subsubItem, subsubIndex, selectedOption, handleSubOpen)
-                                                            })}
-                                                        </List>
-                                                    </AccordionBody>
-                                                </Accordion>
-                                            </List>
-                                        )
-                                    }
+    const renderIcon = (icon) => {
+        return createElement(icon, {
+            className: "h-5 w-5"
+        })
+    }
 
-                                    return (
-                                        <ListItem key={subIndx + 10} selected={label === selectedOption} className={`px-4 sdsds hover:bg-blue-gray-600 ${label === selectedOption ? 'focus:bg-azul-acero  active:bg-azul-acero bg-azul-acero' : ''}`}
-                                            onClick={(e) => handleSubOpen(label, e)}>
-                                            <ListItemPrefix>
-                                                <StarIcon strokeWidth={3} className="h-3 w-5" />
-                                            </ListItemPrefix>
-                                            {label}
-                                        </ListItem>
-                                    )
-                                })}
-                            </AccordionBody>
-                        </Accordion>
-                    )
-                }
-                return (
-                    <ListItem key={idx + 10} selected={label === selectedOption} className={`px-4 sdsds hover:bg-blue-gray-600 ${label === selectedOption ? 'focus:bg-azul-acero  active:bg-azul-acero bg-azul-acero' : ''}`}
-                        onClick={(e) => handleSubOpen(label, e)}>
-                        <ListItemPrefix>
-                            <StarIcon strokeWidth={3} className="h-3 w-5" />
-                        </ListItemPrefix>
+    const renderListItemsHeader = (label, idx, handleOpen) => {
+        return (
+            <ListItem className={`h-12 ${idx === 0 ? '' : 'ml-4 w-[90%]'} `}>
+                <AccordionHeader onClick={() => handleOpen(idx)}>
+                    <ListItemPrefix>
+                        <PresentationChartBarIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography color="blue-gray" className="mr-auto font-normal">
                         {label}
-                    </ListItem>
+                    </Typography>
+                </AccordionHeader>
+            </ListItem>
+        )
+    }
+    let index = 0
+
+
+    const renderOptions = (options) => {
+        return options.map((option, idx) => {
+            const { label, subOptions } = option;
+            if (Array.isArray(subOptions)) {
+                return (
+                    <Accordion key={index} open={!!open[index]} icon={<ChevronDownIcon strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open[index] ? "rotate-180" : ""}`} />} className="m-0 p-0">
+                        {renderListItemsHeader(label, index, handleOpen)}
+                        <AccordionBody>
+                            {renderOptions(subOptions, ++index)}
+                        </AccordionBody>
+                    </Accordion>
                 )
-            })}
+            }
+            return (
+                <ListItem key={idx + 10} selected={label === selectedOption} className={`hover:bg-blue-gray-600 ml-9 w-56 ${label === selectedOption ? 'focus:bg-azul-acero  active:bg-azul-acero bg-azul-acero' : ''}`}
+                    onClick={(e) => handleSubOpen(label, e)}>
+                    <ListItemPrefix>
+                        <StarIcon strokeWidth={3} className="h-3" />
+                    </ListItemPrefix>
+                    {label}
+                </ListItem>
+            )
+
+
+        })
+    }
+
+
+    return (
+        <List className="w-full">
+            {renderOptions(list)}
         </List>
     )
 
 }
 
-
-const renderListItemsHeader = (item, idx, handleOpen) => {
-
-    return (
-        <ListItem >
-            <AccordionHeader onClick={() => handleOpen(idx)}>
-                <ListItemPrefix>
-                    <PresentationChartBarIcon className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="mr-auto font-normal">
-                    {item.label}
-                </Typography>
-            </AccordionHeader>
-        </ListItem>
-    )
-}
-
-const renderListItemsBody = (subsubItem, subIndx, selectedOption, handleSubOpen) => {
-    const subsubLabel = subsubItem["label"]
-    return (
-        <ListItem key={subIndx + 10} selected={subsubLabel === selectedOption} className={`px-4 sdsds hover:bg-blue-gray-600 ${subsubLabel === selectedOption ? 'focus:bg-azul-acero  active:bg-azul-acero bg-azul-acero' : ''}`}
-            onClick={(e) => handleSubOpen(subsubLabel, e)}>
-            <ListItemPrefix>
-                <StarIcon strokeWidth={3} className="h-3 w-5" />
-            </ListItemPrefix>
-            {subsubItem.label}
-        </ListItem>
-    )
-}
 
 MainSideBar.propTypes = {
     title: Proptypes.string.isRequired,
