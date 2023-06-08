@@ -9,6 +9,7 @@ import ProyectoPage from '../pages/Proyecto/ProyectoPage'
 import ProduccionPage from '../pages/Produccion/ProduccionPage'
 import ConfigPage from '../pages/Config/ConfigPage';
 import OfertaFabricacionPage from '../pages/OfertaFabricacion/OfertaFabricacionPage';
+import { FormDatosEmpresa } from '../components/formDatosEmpresa/FormDatosEmpresa';
 
 
 const routers = createBrowserRouter([
@@ -42,7 +43,13 @@ const routers = createBrowserRouter([
             },
             {
                 path: 'config',
-                element: <ConfigPage />
+                element: <ConfigPage />,
+                children: [
+                    {
+                        path: 'datosempresa',
+                        element: <FormDatosEmpresa />
+                    }
+                ]
             },
             {
                 path: 'of',

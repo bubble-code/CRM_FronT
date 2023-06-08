@@ -5,6 +5,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon, BuildingLibraryIcon } from "@hero
 import Proptypes from 'prop-types';
 import { useAppDispath, useAppSelector } from "../../app/hoock";
 import { changeRoute } from "../../redux/Slices/RouteSlice";
+import { useNavigate } from "react-router-dom";
 
 
 export default function MainSideBar({ title, options }) {
@@ -28,6 +29,7 @@ const GenerateList = ({ list }) => {
     const [open, setOpen] = useState([]);
     const dispatch = useAppDispath();
     const selectedOption = useAppSelector((state) => state.subRoutePage.data)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const inittialState = new Array(list.length).fill(false)
@@ -43,8 +45,9 @@ const GenerateList = ({ list }) => {
         });
     };
 
-    const handleSubOpen = (value) => {
+    const handleSubOpen = (value, option) => {
         dispatch(changeRoute(value))
+        navigate(`${option.link}`)
     }
 
     const renderIcon = (icon) => {
@@ -75,7 +78,7 @@ const GenerateList = ({ list }) => {
             const { label, subOptions } = option;
             if (Array.isArray(subOptions)) {
                 return (
-                    <Accordion key={index} open={!!open[index]} icon={<ChevronDownIcon strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open[index] ? "rotate-180" : ""}`} />} className="m-0 p-0">
+                    <Accordion key={index} open={!!open[index]} icon={<ChevronDownIcon strokeWidth={2.5} className={`mx-auto h-4 w-4 rotate-90 transition-transform ${open[index] ? "rotate-90" : ""}`} />} className="m-0 p-0">
                         {renderListItemsHeader(label, index, handleOpen)}
                         <AccordionBody>
                             {renderOptions(subOptions, ++index)}
@@ -85,7 +88,7 @@ const GenerateList = ({ list }) => {
             }
             return (
                 <ListItem key={idx + 10} selected={label === selectedOption} className={`hover:bg-blue-gray-600 ml-9 w-56 ${label === selectedOption ? 'focus:bg-azul-acero  active:bg-azul-acero bg-azul-acero' : ''}`}
-                    onClick={(e) => handleSubOpen(label, e)}>
+                    onClick={(e) => handleSubOpen(label, option)}>
                     <ListItemPrefix>
                         <StarIcon strokeWidth={3} className="h-3" />
                     </ListItemPrefix>

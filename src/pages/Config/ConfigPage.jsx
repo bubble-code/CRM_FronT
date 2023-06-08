@@ -3,6 +3,7 @@ import MainSideBar from "../../components/mainSideBar/MainSideBar";
 import { TitleSubPage } from "../../components/titleSubPage/TitleSubPage";
 import { useDispatch } from "react-redux";
 import { changeRoute } from "../../redux/Slices/RouteSlice";
+import { Outlet } from "react-router-dom";
 
 export default function ConfigPage() {
     const dispatch = useDispatch();
@@ -14,33 +15,17 @@ export default function ConfigPage() {
     }, [dispatch])
 
     const options = [
+
         {
-            label: "Configuracion",
-            link: "configuracion",
-            icon: "ChevronDownIcon",
+            label: "Empresa",
+            link: "empresa",
+            icon: "MagnifyingGlassIcon",
             subOptions: [
                 {
                     label: "Empresa",
-                    link: "empresa",
-                    icon: "MagnifyingGlassIcon",
+                    link: "empresaItem",
+                    icon: "BuildingLibraryIcon",
                     subOptions: [
-                        {
-                            label: "Empresa",
-                            link: "empresaItem",
-                            icon: "BuildingLibraryIcon",
-                            subOptions: [
-                                {
-                                    label: "Contadores",
-                                    link: "contadores/contadores",
-                                    icon: "StarIcon"
-                                },
-                                {
-                                    label: "Contadores de Entidad",
-                                    link: "contadores/entidad",
-                                    icon: "StarIcon"
-                                }
-                            ]
-                        },
                         {
                             label: "Contadores",
                             link: "contadores",
@@ -64,84 +49,147 @@ export default function ConfigPage() {
                             icon: "MagnifyingGlassIcon",
                             subOptions: [
                                 {
-                                    label: "Datos de Empresa",
-                                    link: "calendarios/datosempresa"
+                                    label: "Calendarios",
+                                    link: "calendarios"
                                 },
                                 {
-                                    label: "Centro de Gestion",
-                                    link: "calendarios/centrogestion"
-                                },
-                                {
-                                    label: "Bancos Propios",
-                                    link: "calendarios/bancospropios"
+                                    label: "Tipos de Turnos",
+                                    link: "tipos/turnos"
                                 }
                             ]
                         },
                         {
-                            label: "Tablas Estables",
-                            link: "testables",
+                            label: "Datos de la Empresa",
+                            link: "datosempresa",
+                            icon: "StarIcon"
+                        },
+                        {
+                            label: "Centros de Gestion",
+                            link: "centros/gestion",
+                            icon: "StarIcon"
+                        },
+                        {
+                            label: "Bancos Propios",
+                            link: "bancos/propios",
+                            icon: "StarIcon"
+                        }
+                    ]
+                },
+                {
+                    label: "Parametrizacion",
+                    link: "parametrizacion",
+                    icon: "MagnifyingGlassIcon",
+                    subOptions: [
+                        {
+                            label: "Contadores",
+                            link: "contadores/contadores",
+                            icon: "StarIcon"
+                        },
+                        {
+                            label: "Contadores de Entidad",
+                            link: "contadores/entidad",
+                            icon: "StarIcon"
+                        }
+                    ]
+                },
+                {
+                    label: "Tablas Estables",
+                    link: "tablas/estables",
+                    icon: "MagnifyingGlassIcon",
+                    subOptions: [
+                        {
+                            label: "Contadores",
+                            link: "contadores/contadores",
+                            icon: "StarIcon"
+                        },
+                        {
+                            label: "Contadores de Entidad",
+                            link: "contadores/entidad",
+                            icon: "StarIcon"
+                        }
+                    ]
+                },
+                {
+                    label: "Contadores",
+                    link: "contadores/contadores",
+                    icon: "StarIcon"
+                },
+                {
+                    label: "Contadores de Entidad",
+                    link: "contadores/entidad",
+                    icon: "StarIcon"
+                },
+
+                {
+                    label: "Tablas Estables",
+                    link: "testables",
+                    subOptions: [
+                        {
+                            label: "Datos de Empresa",
+                            link: "datosempresa"
+                        },
+                        {
+                            label: "Consulta de Parametros",
+                            link: "consultaParametros"
+                        },
+                        {
+                            label: "Consulta de Entidades",
+                            link: "consultaentidades"
+                        },
+                        {
+                            label: "Parametrizacion",
+                            link: "parametrizacion",
                             subOptions: [
                                 {
-                                    label: "Datos de Empresa",
-                                    link: "datosempresa"
-                                },
-                                {
-                                    label: "Consulta de Parametros",
-                                    link: "consultaParametros"
-                                },
-                                {
-                                    label: "Consulta de Entidades",
-                                    link: "consultaentidades"
-                                },
-                                {
-                                    label: "Parametrizacion",
-                                    link: "parametrizacion",
+                                    label: "Parametros",
+                                    link: "parametros",
                                     subOptions: [
                                         {
+                                            label: "Grupo de Parametros",
+                                            link: "grupoparametros"
+                                        },
+                                        {
                                             label: "Parametros",
-                                            link: "parametros",
-                                            subOptions: [
-                                                {
-                                                    label: "Grupo de Parametros",
-                                                    link: "grupoparametros"
-                                                },
-                                                {
-                                                    label: "Parametros",
-                                                    link: "parametros"
-                                                },
-                                                {
-                                                    label: "Consulta Parametros",
-                                                    link: "consultaparametros"
-                                                }
-                                            ]
+                                            link: "parametros"
                                         },
                                         {
-                                            label: "Configuracion Correos",
-                                            link: "configuracioncorreo"
-                                        },
-                                        {
-                                            label: "Entidades Fotos",
-                                            link: "entidadesfotos"
+                                            label: "Consulta Parametros",
+                                            link: "consultaparametros"
                                         }
                                     ]
                                 },
+                                {
+                                    label: "Configuracion Correos",
+                                    link: "configuracioncorreo"
+                                },
+                                {
+                                    label: "Entidades Fotos",
+                                    link: "entidadesfotos"
+                                }
                             ]
                         },
                     ]
                 },
                 {
-                    label: "Tablas Auxiliares",
-                    link: "tauxiliares",
-                    subOptions: [
-                        {
-                            label: "Tablas Auxiliares",
-                            link: "auxiliares/tauxiliares"
-                        }
-                    ]
+                    label: "Consulta Parametros",
+                    link: "parametros",
                 },
+                {
+                    label: "Contadores de Entidad",
+                    link: "conotadores",
+                }
             ]
         },
-
+        {
+            label: "Tablas Auxiliares",
+            link: "tauxiliares",
+            subOptions: [
+                {
+                    label: "Tablas Auxiliares",
+                    link: "auxiliares/tauxiliares"
+                }
+            ]
+        }
     ]
 
 
@@ -150,8 +198,9 @@ export default function ConfigPage() {
             <div className="col-span-1">
                 <MainSideBar title="Configuracion" options={options} />
             </div>
-            <div className="col-span-3">
+            <div className="col-span-3 self-start">
                 <TitleSubPage title="Configuracion" />
+                <Outlet />
             </div>
 
         </div>
