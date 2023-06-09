@@ -1,4 +1,4 @@
-import { Form, Input, Button, Tooltip } from "antd";
+import { Form, Input, Button, Tooltip, Divider, AutoComplete } from "antd";
 import Proptypes from 'prop-types';
 
 export const FormDatosEmpresa = () => {
@@ -22,35 +22,41 @@ export const FormDatosEmpresa = () => {
             <Form.Item label="Empresa" name='empresa' labelAlign="left" >
                 <TooltipInput placeholder="Type de Company Name" />
             </Form.Item>
-            <Form.Item label="CIF" name='cif' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 12 }}>
+            <Form.Item label="Doc.Identif" name='cif' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 12 }}>
                 <TooltipInput placeholder="Enter CIF" />
             </Form.Item>
             <Form.Item label="Direccion" name='direccion' labelAlign="left" >
                 <TooltipInput placeholder={"Type the address"} />
             </Form.Item>
-            <Form.Item label="CP" name='cp' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 8 }}>
-                <TooltipInput placeholder={"Type the PC"} />
+            <Form.Item label="Zona" name='zona' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 8 }}>
+                <TooltipInput placeholder={''} />
             </Form.Item>
-            <Form.Item label="Provincia" name='provincia' labelAlign="left" >
-                <TooltipInput placeholder={"Type the province"} />
-            </Form.Item>
-            <Form.Item label="Poblacion" name='poblacion' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 8 }}>
-                <TooltipInput placeholder={"Type the population"} />
-            </Form.Item>
-            <Form.Item label="Telefono" name='telefono' labelAlign="left" >
-                <PhoneInput />
-            </Form.Item>
-            <Form.Item label="Fax" name='fax' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 8 }}>
-                <TooltipInput placeholder={"Type the fax"} />
+            <div className="grid grid-cols-2 gap-2 self-start">
+                <div>
+                    <Form.Item label="Telefono" name='telefono' labelAlign="left" labelCol={{ span: 6 }}>
+                        <PhoneInput />
+                    </Form.Item>
+                </div>
+                <div>
+                    <Form.Item label="Fax" name='fax' labelAlign="right" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                        <TooltipInput placeholder={""} />
+                    </Form.Item>
+                </div>
+            </div>
+
+            <Form.Item label="Provincia" name='provincia' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 8 }}>
+                <TooltipInput placeholder={""} />
             </Form.Item>
             <Form.Item label="Email" name='email' labelAlign="left" >
-                <TooltipInput placeholder={"Type the mail"} />
+                <TooltipInput placeholder={""} />
             </Form.Item>
-            <Form.Item label="Web" name='web' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 10 }}>
-                <TooltipInput placeholder={"Type the mail"} />
+            <Form.Item label="Pais" name='pais' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 10 }}>
+                <AutoComplete dropdownMatchSelectWidth={252}>
+                    <Input.Search />
+                </AutoComplete>
             </Form.Item>
-            <Form.Item label="Registrales" name='redistrales' labelAlign="left" >
-                <TooltipInput placeholder={"Type the registry data"} />
+            <Form.Item label="Web" name='web' labelAlign="left" >
+                <TooltipInput placeholder={""} />
             </Form.Item>
             <Form.Item label="ID Empresa" name='idempresa' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 10 }}>
                 <TooltipInput placeholder={"Type the ID"} />
@@ -67,6 +73,9 @@ export const FormDatosEmpresa = () => {
             <Form.Item >
                 <Button color="green" onClick={() => { }}>TODOS</Button>
             </Form.Item>
+            <Divider prefixCls="dsds" style={{ color: 'black', borderColor: 'black' }} className="col-span-2" plain orientation="left" >
+                dsds
+            </Divider>
         </Form>
     )
 
