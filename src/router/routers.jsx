@@ -10,6 +10,7 @@ import ProduccionPage from '../pages/Produccion/ProduccionPage'
 import ConfigPage from '../pages/Config/ConfigPage';
 import OfertaFabricacionPage from '../pages/OfertaFabricacion/OfertaFabricacionPage';
 import { FormDatosEmpresa } from '../components/formDatosEmpresa/FormDatosEmpresa';
+import { Parametros } from '../components/parametros/Parametros';
 
 
 const routers = createBrowserRouter([
@@ -48,6 +49,10 @@ const routers = createBrowserRouter([
                     {
                         path: 'datosempresa',
                         element: <FormDatosEmpresa />
+                    },
+                    {
+                        path: 'parametros',
+                        element: <Parametros />
                     }
                 ]
             },

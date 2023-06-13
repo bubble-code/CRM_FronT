@@ -9,15 +9,14 @@ export const FormDatosEmpresa = () => {
     const [options, setOptions] = useState(list);
     const [form] = Form.useForm();
     const { isLoading, data = [] } = useFetchEmpresaQuery()
-    const [updateEmpresa] = useUpdateEmpresaMutation()
+    const [updateEmpresa, { isLoading: postLoading }] = useUpdateEmpresaMutation()
     const dat = data[0] || {}
     const { DescEmpresa, image, Cif, Direccion, ZonaVitivinicola, CodPostal, Poblacion, Provincia, Telefono, Fax, IDPais, Email, IDCAE, web, Autoridad, IDConsignatario, IDBuzonEDI, IDEmpresa, HorasOficiales, IDCNAE, CIPAdquiriente, CIPFabricante, Libro, RegistroMercantil, Hoja, Folio, Seccion, Tomo, DatosRegistrales, Logo } = dat
     // const img = `data:image/jpeg;base64,${Logo?.data}` || '';
     form.setFieldsValue({ DescEmpresa, Cif, Direccion, ZonaVitivinicola, Provincia, IDPais, Email, IDCAE, web, Autoridad, Telefono, Fax, IDConsignatario, IDBuzonEDI, 'details': `${IDEmpresa + ' ' + DescEmpresa}`, HorasOficiales, CIPAdquiriente, CIPFabricante, DatosRegistrales, CodPostal, Poblacion, Libro, RegistroMercantil, Folio, Seccion, Hoja, IDCNAE })
 
-    const handleBlur = e => {
-        console.log(e.target.id)
-        updateEmpresa(e.target.id)
+    const handleBlur = () => {
+        updateEmpresa(form.getFieldsValue())
     }
 
     const handleChange = (value) => {
@@ -36,10 +35,10 @@ export const FormDatosEmpresa = () => {
     };
 
     return (
-        <Form {...formItemLayout} className="grid grid-cols-2 gap-2 self-start" form={form}>
-
+        <Form {...formItemLayout} className="grid grid-cols-2 gap-2 self-start" form={form} onFinish={handleBlur}>
+            {/* <Button htmlType="submit">Guardar</Button> */}
             <Form.Item label="Empresa" name='DescEmpresa' labelAlign="left" initialValue={DescEmpresa}>
-                <TooltipInput placeholder="Type de Company Name" onBlur={e => handleBlur(e)} />
+                <TooltipInput placeholder="Type de Company Name"/>
             </Form.Item>
             <Form.Item label="Doc.Identif" name='Cif' labelAlign="right" labelCol={{ span: 3 }} wrapperCol={{ span: 12 }} initialValue={Cif}>
                 <TooltipInput placeholder="Enter CIF" />

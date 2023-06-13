@@ -1,5 +1,4 @@
 import { Chip } from '@material-tailwind/react'
-import { val } from '@theatre/core';
 
 
 export const generateColumns = (data) => {
@@ -24,7 +23,7 @@ export const generateColumns2 = (data) => {
 
     const firtItem = data[0];
 
-    const columns = Object.keys(firtItem).map(key => {
+    const columns = Object.keys(firtItem).map((key, idx) => {
         return key === 'PrecioEstandarA' ?
             {
                 header: key,
@@ -52,9 +51,11 @@ export const generateColumns2 = (data) => {
             } :
             {
                 // title: <div style={{ fontWeight: 'bold', color: 'blue' }}>{key}</div>,
-                header: key,
+                header: `${key}`,
                 accessorKey: key,
                 size: 120,
+                id: key,
+                key: key
             }
     })
 

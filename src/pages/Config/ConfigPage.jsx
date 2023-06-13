@@ -64,8 +64,8 @@ export default function ConfigPage() {
                             icon: "StarIcon"
                         },
                         {
-                            label: "Centros de Gestion",
-                            link: "centros/gestion",
+                            label: "Parametros",
+                            link: "parametros",
                             icon: "StarIcon"
                         },
                         {

@@ -18,12 +18,18 @@ const apiEmpresa = createApi({
                 },
             }),
             updateEmpresa: builder.mutation({
-                query(idColumn) {
+                query(data) {
                     return {
-                        url: '/',
+                        url: `/`,
                         method: 'POST',
-                        body: idColumn
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json' },
                     }
+                }
+            }),
+            fetchParametros: builder.query({
+                query() {
+                    return '/parametros'
                 }
             })
         };
@@ -31,4 +37,4 @@ const apiEmpresa = createApi({
 });
 
 export { apiEmpresa };
-export const { useFetchEmpresaQuery, useUpdateEmpresaMutation } = apiEmpresa;
+export const { useFetchEmpresaQuery, useUpdateEmpresaMutation, useFetchParametrosQuery } = apiEmpresa;
