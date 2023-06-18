@@ -21,7 +21,7 @@ const navListMenuItems = [
         icon: UsersIcon,
         title: "Usuarios",
         description: "Managment user,change name, password",
-        path: "/config/user"
+        path: "/otros"
     },
     {
         color: "orange",
@@ -134,7 +134,7 @@ export default function NavListMenu() {
                             onClick={() => setIsMobileMenuOpen((cur) => !cur)}
                         >
                             <Square3Stack3DIcon className="h-[18px] w-[18px]" />
-                            Configuracion
+                            Otros
                             <ChevronDownIcon
                                 strokeWidth={2.5}
                                 className={`hidden h-3 w-3 transition-transform lg:block ${isMenuOpen ? "rotate-180" : ""

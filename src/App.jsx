@@ -8,7 +8,9 @@ function App() {
       <div className="flex items-center justify-center mb-5 px-8">
         <NavBarMain />
       </div>
-      <Outlet />
+      <div className='px-8 w-full'>
+        <Outlet />
+      </div>
     </div>
   )
 }

@@ -11,6 +11,8 @@ import ConfigPage from '../pages/Config/ConfigPage';
 import OfertaFabricacionPage from '../pages/OfertaFabricacion/OfertaFabricacionPage';
 import { FormDatosEmpresa } from '../components/formDatosEmpresa/FormDatosEmpresa';
 import { Parametros } from '../components/parametros/Parametros';
+import Otros from '../pages/Otro/Otro';
+import { Niveles } from '../components/Niveles/Niveles';
 
 
 const routers = createBrowserRouter([
@@ -69,6 +71,16 @@ const routers = createBrowserRouter([
                 path: 'articulos',
                 element: <ArticulosPage />
             },
+            {
+                path: 'otros',
+                element: <Otros />,
+                children: [
+                    {
+                        path: 'niveles',
+                        element: <Niveles />
+                    }
+                ]
+            }
         ]
     }
 ])
