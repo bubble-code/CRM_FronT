@@ -2,10 +2,13 @@ import { Divider, Form, AutoComplete, Input, Button } from "antd"
 import { SearchOutlined } from '@ant-design/icons'
 import { useState } from "react";
 import { list } from '../../helpers/list'
+import { useFetchNivelesQuery } from "../../features/Bi";
 
 export const Niveles = () => {
     const [form] = Form.useForm();
     const [isLoading, setIsloading] = useState(false)
+    const [cliente, desde, hasta] = ['482', '4200', '4210']
+    const { data } = useFetchNivelesQuery({ cliente, desde, hasta })
 
     const formItemLayout = {
         labelCol: {
@@ -26,6 +29,7 @@ export const Niveles = () => {
         const result = list.filter(item => mm.includes(item))
         console.log(result)
         console.log(mm)
+        // fetchNiveles(cliente, desde, hasta)
 
 
     }
@@ -38,32 +42,30 @@ export const Niveles = () => {
                 </div>
             </Divider>
             <div className="flex">
-                <Form  {...formItemLayout} form={form} title="Type Data" className="flex flex-col gap-4" onFinish={submit}>
-                    <div className="flex gap-3 justify-center">
-                        <Form.Item label="Cliente" name='cliente' labelAlign="right" labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
-                            <AutoComplete dropdownMatchSelectWidth={252} onSearch={() => { }} options={[]}>
-                                <Input.Search />
-                            </AutoComplete >
+                <Form  {...formItemLayout} form={form} title="Type Data" className="flex flex-col" onFinish={submit}>
+                    <Form.Item label="Cliente" name='cliente' labelAlign="right" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} required >
+                        <AutoComplete dropdownMatchSelectWidth={252} onSearch={() => { }} options={[]} >
+                            <Input.Search required />
+                        </AutoComplete >
+                    </Form.Item>
+                    <div className="flex w-[400px]">
+                        <span className="ml-2 mr-3">Familia:</span>
+                        <Form.Item name='desde' className="w-1/3" required>
+                            <Input style={{ background: `'rgb(33 150 243 / 0.3)'` }}
+                                placeholder="Desde:" className="text-right" required
+                            />
                         </Form.Item>
-                        <div className="flex w-[400px]">
-                            <span className="ml-4 mr-3">Familia:</span>
-                            <Form.Item name='desde' className="w-1/3" required>
-                                <Input style={{ background: `'rgb(33 150 243 / 0.3)'` }}
-                                    placeholder="Desde:" className="text-right" required
-                                />
-                            </Form.Item>
-                            <Form.Item name='hasta' className="w-1/3" required>
-                                <Input style={{ background: `'rgb(33 150 243 / 0.3)'` }}
-                                    placeholder="Hasta:" className="text-right"
-                                />
-                            </Form.Item>
-                            <Form.Item>
-                                <Button icon={<SearchOutlined />} htmlType="submit" type="default" color="blue" className="border border-blue-500" loading={isLoading} >Search</Button>
-                            </Form.Item>
-                        </div>
+                        <Form.Item name='hasta' className="w-1/3" required>
+                            <Input style={{ background: `'rgb(33 150 243 / 0.3)'` }} required
+                                placeholder="Hasta:" className="text-right"
+                            />
+                        </Form.Item>
                     </div>
-                    <Form.Item className="w-[300px]" name='materiales' required>
+                    <Form.Item label='Items' labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} name='materiales' required>
                         <Input.TextArea cols={1} rows={15} />
+                    </Form.Item>
+                    <Form.Item className="flex justify-center">
+                        <Button icon={<SearchOutlined />} htmlType="submit" type="default" color="blue" className="border border-blue-500" loading={isLoading} >Search</Button>
                     </Form.Item>
 
                 </Form>
