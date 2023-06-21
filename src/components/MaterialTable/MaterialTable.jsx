@@ -14,18 +14,29 @@ export const MainReactTable = ({ materiales }) => {
     const [columns, setColumns] = useState([])
 
     // let columns = []
+    const csvExporter = new ExportToCsv()
 
     useEffect(() => {
         const fetch = async () => {
             const mm = materiales.split('\n')
             console.log(mm)
-            const resp = await axios.post('http://localhost:4050/bi', {
+            const resp = await axios.post('http://10.0.0.242:4050/bi', {
                 cliente, desde, hasta
             })
             // console.log(resp.data)
             let result = resp.data.filter(item => mm.includes(item.Codigo))
             console.log(result)
             const column = generateColumns2(result);
+            const csvOptions = {
+                fieldSeparator: ',',
+                quoteStrings: '"',
+                decimalSeparator: '.',
+                showLabels: true,
+                useBom: true,
+                useKeysAsHeaders: false,
+                headers: columns.map((c) => c.header)
+            };
+            csvExporter.options = csvOptions
             setColumns(column)
             setData(result)
         }
@@ -36,17 +47,7 @@ export const MainReactTable = ({ materiales }) => {
 
 
 
-    const csvOptions = {
-        fieldSeparator: ',',
-        quoteStrings: '"',
-        decimalSeparator: '.',
-        showLabels: true,
-        useBom: true,
-        useKeysAsHeaders: false,
-        headers: columns.map((c) => c.header)
-    };
 
-    const csvExporter = new ExportToCsv(csvOptions)
 
     const handleExportData = (rows) => () => {
         console.log(rows)
@@ -65,13 +66,13 @@ export const MainReactTable = ({ materiales }) => {
                         pageSize: 100
                     }
                 }}
-                renderTopToolbarCustomActions={({ table }) => {
+                renderTopToolbarCustomActions={({ table }) => (
                     <div className="flex gap-4 p-2 flex-wrap">
                         <Button
                             onClick={handleExportData(table.getPrePaginationRowModel().rows)}
                         >Export All Data</Button>
                     </div>
-                }
+                )
                 }
             />
         }

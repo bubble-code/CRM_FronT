@@ -5,6 +5,7 @@ import { list } from '../../helpers/list'
 import { apiBI, useFetchNivelesQuery } from "../../features/Bi";
 import { useDispatch } from "react-redux";
 import { MainReactTable } from "../MaterialTable/MaterialTable";
+import { ExcelUploades } from "../excel/Excel";
 
 export const Niveles = () => {
     const [form] = Form.useForm();
@@ -84,6 +85,9 @@ export const Niveles = () => {
                     </Form.Item>
 
                 </Form>
+                <div>
+                    <ExcelUploades />
+                </div>
             </div>
             {
                 !isLoading ? <></> :
