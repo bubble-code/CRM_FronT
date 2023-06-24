@@ -1,5 +1,4 @@
 import { MaterialReactTable } from "material-react-table"
-import { } from '@heroicons/react/24/outline'
 import { useFetchParametrosQuery } from "../../features/empresa-api-slice"
 import { generateColumns2 } from "../../helpers/gHeaderColumns"
 import { Button, Divider, Space, Tag } from "antd"

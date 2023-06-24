@@ -57,8 +57,9 @@ export const Niveles = () => {
                     <span className="mt-4 border rounded-lg text-blue-500 font-extralight uppercase text-xs tracking-wider border-blue-500  p-2 px-4">{'Selecciones un Parametro'}</span>
                 </div>
             </Divider>
+            <ExcelUploades />
             <div className="flex">
-                <Form  {...formItemLayout} form={form} title="Type Data" className="flex flex-col" onFinish={submit}>
+                {/*  <Form  {...formItemLayout} form={form} title="Type Data" className="flex flex-col" onFinish={submit}>
                     <Form.Item label="Cliente" name='cliente' labelAlign="right" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} required >
                         <AutoComplete dropdownMatchSelectWidth={252} onSearch={() => { }} options={[]} >
                             <Input.Search required />
@@ -86,12 +87,12 @@ export const Niveles = () => {
 
                 </Form>
                 <div>
-                    <ExcelUploades />
-                </div>
+                    
+                </div> */}
             </div>
             {
-                !isLoading ? <></> :
-                    <MainReactTable data={data} materiales={form.getFieldValue('materiales')} />
+                // !isLoading ? <></> :
+                    // <MainReactTable data={data} materiales={form.getFieldValue('materiales')} />
             }
         </div>
     )

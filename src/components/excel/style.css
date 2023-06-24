@@ -1,0 +1,18 @@
+.Spreadsheet__table th {
+  background-color: cadetblue;
+  border: 1px solid black;
+}
+.Spreadsheet__table tr {
+  font-size: small;
+}
+.Spreadsheet__table tr:nth-child(odd) {
+  background-color: darkgray;
+}
+.Spreadsheet__table {
+  overflow: hidden;
+  /* width: fit-content; */
+}
+.Spreadsheet {
+  overflow: hidden;
+  width: fit-content;
+}
