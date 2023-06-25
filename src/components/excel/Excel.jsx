@@ -5,6 +5,14 @@ import moment from "moment";
 import { RenderGrid } from './RenderTable'
 import { useFetchNiveles } from "../../hook/fetchNiveles";
 
+
+
+const convertExcelDate = (excelDate) => {
+    const date = moment(new Date(0)).add(excelDate, 'M');
+    const formatDate = date.format('DD - MMM')
+    return formatDate
+};
+
 export const ExcelUploades = () => {
 
     const inputFileRef = useRef(null)
@@ -12,6 +20,7 @@ export const ExcelUploades = () => {
     const [workbook, setWorkbook] = useState(null)
     const [data, setData] = useState(null);
     const [selectedSheet, setSelectedSheet] = useState(null);
+    const [labelColumn, setLabelColumns] = useState([])
     const { fetchNiveles, articulos, isLoading } = useFetchNiveles()
 
     const handleFileUpload = (event) => {
@@ -36,7 +45,47 @@ export const ExcelUploades = () => {
         const workheet = workbook.Sheets[sheetName]
         const jsonData = utils.sheet_to_json(workheet, { header: 1 })
         // console.log(jsonData)
-        setData(jsonData)
+
+        const headData = jsonData[8]
+        const labels = []
+        for (let index = 2; index < headData.length; index++) {
+            const label = isNaN(headData[index]) ? <span className='uppercase font-semibold text-black'>{headData[index]}</span> : <span className='uppercase font-semibold text-black'>{convertExcelDate(headData[index])}</span>
+            labels.push(label)
+            if (index === 3) {
+                labels.push(<span className='uppercase font-semibold text-black'>PVP</span>)
+                labels.push(<span className='uppercase font-semibold text-black'>Coeficiente</span>)
+                labels.push(<span className='uppercase font-semibold text-black'>CosteChapa</span>)
+                labels.push(<span className='uppercase font-semibold text-black'>Chapa</span>)
+            }
+            if (!isNaN(headData[index])) {
+                labels.push(<span className='uppercase font-semibold text-black'>{`Ch ${convertExcelDate(headData[index])}`}</span>)
+            }
+            if (headData[index].toString().toUpperCase() === 'TOTAL') {
+                labels.push(<span className='uppercase font-semibold text-black'>Ch Total</span>)
+            }
+        }
+        const newData = jsonData.slice(9)
+        const mainData = []
+        const article = newData.map((item) => {
+            const eachItem = []
+            for (let index = 2; index < item.length; index++) {
+                eachItem.push({ value: item[index] });
+                if (index === 3) {
+                    eachItem.push({ value: '' })
+                    eachItem.push({ value: '' })
+                    eachItem.push({ value: '' })
+                    eachItem.push({ value: '' })
+                }
+                if (!isNaN(headData[index])) {
+                    eachItem.push({ value: '' })
+                }
+            }
+            mainData.push(eachItem)
+            return item[2]
+        })
+        setData(mainData)
+
+        setLabelColumns(labels)
         setSelectedSheet(sheetName)
 
     }
@@ -44,10 +93,38 @@ export const ExcelUploades = () => {
         inputFileRef.current.click()
     }
     const handleFetch = async () => {
-        await fetchNiveles({ articulos: '482', cliente: '482', desde: '4200', hasta: '4220' })
-        console.log(articulos)
-    }
+        const article = data.map((item) => item[0].value)
+        await fetchNiveles({
+            articulos: article, cliente: '482', desde: '4200', hasta: '4220'
+        })
+        console.log('data', data)
+        const newData = []
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            const foundIndex = []
+            for (let j = 0; j < articulos.length; j++) {
+                if (articulos[j].Codigo === element[0].value) {
+                    foundIndex.push(j)
+                }
+            }
+            if (foundIndex > 0) {
+                element[2].value = articulos[foundIndex[0]].PrecioVenta
+                element[3].value = (articulos[foundIndex[0]]['U.Br']).toFixed(8)
+            }
+            newData.push(element)
 
+            // console.log('index', foundIndex)
+
+
+        }
+        console.log('element', newData)
+        setData(newData)
+
+        // setData((dat) => [...dat])
+        // console.log('articulos', typeof (articulos))
+        console.log('articulos', articulos)
+
+    }
 
 
     return (
@@ -85,18 +162,7 @@ export const ExcelUploades = () => {
                     </div>
                 </div>
                 {
-                    data ? <RenderGrid data={data} /> : <></>
-                    // data[8]?.map((item) => {
-
-                    //     return (
-                    //         <div key={item} id={item} className={`border border-blue-500 px-2 text-center rounded-lg cursor-pointer ${item === selectedSheet ? 'bg-blue-gray-300' : ''}`}>
-                    //             {isNaN(item) ? item : convertExcelDate(item)}
-                    //         </div>
-                    //     )
-                    // }) : <></>
-                }
-                {
-                    isLoading ?? <span>Loading...</span>
+                    data ? <RenderGrid data={data} labelColumns={labelColumn} /> : <></>
                 }
             </div>
         </div>
