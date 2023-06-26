@@ -4,6 +4,7 @@ import { Form, Button } from "antd";
 import moment from "moment";
 import { RenderGrid } from './RenderTable'
 import { useFetchNiveles } from "../../hook/fetchNiveles";
+import axios from "axios";
 
 
 
@@ -21,6 +22,7 @@ export const ExcelUploades = () => {
     const [data, setData] = useState(null);
     const [selectedSheet, setSelectedSheet] = useState(null);
     const [labelColumn, setLabelColumns] = useState([])
+    const [headerIndex, setHeaderIndex] = useState([])
     const { fetchNiveles, articulos, isLoading } = useFetchNiveles()
 
     const handleFileUpload = (event) => {
@@ -48,6 +50,7 @@ export const ExcelUploades = () => {
 
         const headData = jsonData[8]
         const labels = []
+        const headeIndex = []
         for (let index = 2; index < headData.length; index++) {
             const label = isNaN(headData[index]) ? <span className='uppercase font-semibold text-black'>{headData[index]}</span> : <span className='uppercase font-semibold text-black'>{convertExcelDate(headData[index])}</span>
             labels.push(label)
@@ -59,11 +62,14 @@ export const ExcelUploades = () => {
             }
             if (!isNaN(headData[index])) {
                 labels.push(<span className='uppercase font-semibold text-black'>{`Ch ${convertExcelDate(headData[index])}`}</span>)
+                headeIndex.push(index);
             }
             if (headData[index].toString().toUpperCase() === 'TOTAL') {
                 labels.push(<span className='uppercase font-semibold text-black'>Ch Total</span>)
             }
         }
+        setHeaderIndex(headeIndex)
+
         const newData = jsonData.slice(9)
         const mainData = []
         const article = newData.map((item) => {
@@ -93,23 +99,32 @@ export const ExcelUploades = () => {
         inputFileRef.current.click()
     }
     const handleFetch = async () => {
-        const article = data.map((item) => item[0].value)
-        await fetchNiveles({
-            articulos: article, cliente: '482', desde: '4200', hasta: '4220'
-        })
-        console.log('data', data)
+        // const article = data.map((item) => item[0].value)
+        // await fetchNiveles({
+        //     articulos: article, cliente: '482', desde: '4200', hasta: '4220'
+        // })
+        const result = await axios.get('http://localhost:4050/bi')
+        const articulosFound = result.data
+        // console.log('articulos', data)
         const newData = []
         for (let i = 0; i < data.length; i++) {
             const element = data[i];
             const foundIndex = []
-            for (let j = 0; j < articulos.length; j++) {
-                if (articulos[j].Codigo === element[0].value) {
+            for (let j = 0; j < articulosFound.length; j++) {
+                if (articulosFound[j].Codigo === element[0].value) {
                     foundIndex.push(j)
                 }
             }
             if (foundIndex > 0) {
-                element[2].value = articulos[foundIndex[0]].PrecioVenta
-                element[3].value = (articulos[foundIndex[0]]['U.Br']).toFixed(8)
+                element[2].value = articulosFound[foundIndex[0]].PrecioVenta
+                element[3].value = (articulosFound[foundIndex[0]]['U.Br']).toFixed(8)
+                element[4].value = articulosFound[foundIndex[0]].CosteChapa
+                element[5].value = articulosFound[foundIndex[0]].CodigoChapa
+            }
+            for (let i = 0; i < headerIndex.length; i++) {
+                console.log(headerIndex[i])
+                element[headerIndex[i] + 4].value = element[headerIndex[3]] * element[3].value;
+
             }
             newData.push(element)
 
@@ -122,10 +137,13 @@ export const ExcelUploades = () => {
 
         // setData((dat) => [...dat])
         // console.log('articulos', typeof (articulos))
-        console.log('articulos', articulos)
+        // console.log('articulos', articulos)
 
     }
 
+    useEffect(() => {
+
+    }, [data])
 
     return (
         <div className="flex flex-col">
